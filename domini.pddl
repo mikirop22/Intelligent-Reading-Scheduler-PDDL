@@ -9,7 +9,7 @@
     (:predicates
         (predecesor ?l1 - libros_catalog ?l2 - libros_catalog)
         (leido ?l - libros_catalog)
-        (paralelos ?l1 - libros_catalog ?l2 - libros_catalog)
+        ;(paralelos ?l1 - libros_catalog ?l2 - libros_catalog)
         (mes_lectura ?l - libros_catalog ?m - mes)
         (mes_anterior ?m1 - mes ?m2 - mes)
     )
@@ -42,5 +42,6 @@
                     
         )        
     )
+    
 
 )
