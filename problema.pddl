@@ -1,4 +1,4 @@
-(define (problem PlanLectura-problema)
+(define (problem PlanLectura_problema)
   (:domain PlanLectura)
 
   ;; Objetos
@@ -11,12 +11,12 @@
   (:init
     (mes_valid gener)
     (mes_valid febrer)
-    (llegit llibre1)
+    ;;(llegit llibre1)
     (vol-llegir llibre2)
     ;;(vol-llegir llibre45)
     ;;(vol-llegir llibre70)
     (predecesor llibre1 llibre2)
-    ;(predecesor llibre2 llibre3)
+    ;(predecesor llibre3 llibre2)
   )
 
   ;; Meta
