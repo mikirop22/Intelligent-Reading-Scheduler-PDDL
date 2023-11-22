@@ -10,7 +10,10 @@
     (vol-llegir ?llibre - llibre)
     (predecesor ?predecesor - llibre ?llibre - llibre)
     (mes_valid ?mes - mes)
-    (pla-lectura ?llibre -llibre ?mes - mes)
+    (mes_anterior ?mes_anterior - mes ?mes - mes)
+    (pla_lectura ?llibre - llibre ?mes - mes)
+    (llegir_seguent ?llibre -llibre)
+    (llegir_aquest ?llibre -llibre)
   )
 
 (:functions
@@ -20,34 +23,35 @@
 (:action llegir
   :parameters (?llibre - llibre ?mes - mes)
   :precondition (and (vol-llegir ?llibre) 
-                     (<(mesos ?mes)3) 
+                     (mes_valid ?mes) 
                      (or (not (exists (?predecesor - llibre) (predecesor ?predecesor ?llibre)))
-                         (exists (?predecesor - llibre) (and (predecesor ?predecesor ?llibre) (llegit ?predecesor)))
+                         (exists (?predecesor - llibre ?mes_anterior -mes) (and (predecesor ?predecesor ?llibre) 
+                                                             (llegit ?predecesor) 
+                                                             (pla_lectura ?predecesor ?mes_anterior)
+                                                             ))
                      )
                 )
   :effect (and (llegit ?llibre) 
                (not (vol-llegir ?llibre)) 
-               (pla-lectura ?llibre ?mes)
-               (increase (mesos ?mes) 1)
                )
 )
 
 
   (:action llegir_pre
     :parameters (?llibre - llibre ?mes -mes)
-    :precondition (and (<(mesos ?mes)3) 
+    :precondition (and (mes_valid ?mes) 
                        (exists (?next_llibre - llibre) (and (predecesor ?llibre ?next_llibre) (vol-llegir ?next_llibre)))
                   )
     :effect (and (llegit ?llibre) 
-                 (pla-lectura ?llibre ?mes)
-                 (increase (mesos ?mes) 1)
                  )
   )
 
   (:action canviar_mes
-      :parameters ()
-      :precondition (and )
-      :effect (and )
+      :parameters (?mes_anterior - mes ?nou_mes - mes)
+      :precondition (and (mes_valid ?mes_anterior) (mes_anterior ?mes_anterior ?nou_mes))
+      :effect (and (not(mes_valid ?mes_anterior))
+                   (mes_valid ?nou_mes)
+              )
   )
   
 )
