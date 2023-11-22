@@ -11,16 +11,16 @@
   (:init
     (mes_valid gener)
     (mes_valid febrer)
+    (mes_valid març)
     (llegit llibre1)
     (vol-llegir llibre2)
-    ;;(vol-llegir llibre45)
-    ;;(vol-llegir llibre70)
+    (vol-llegir llibre45)
+    (vol-llegir llibre70)
     (predecesor llibre1 llibre2)
-    ;(predecesor llibre2 llibre3)
+    (predecesor llibre2 llibre3)
   )
 
-  ;; Meta
+  ;; goal
   (:goal (forall (?llibre - llibre) (imply(vol-llegir ?llibre) (llegit ?llibre))))
-  ;;(:goal (forall (?llibre - llibre)(imply (vol-llegir ?llibre)(and (llegit ?llibre)(forall (?predecesor - llibre)(imply (predecesor ?llibre ?predecesor)(llegit ?predecesor)))))))
 
 )

@@ -1,47 +1,43 @@
-(define (domain recomendacion_libros)
-    (:requirements :strips :typing :adl :fluents)
+(define (domain PlanLectura)
+  (:requirements :strips :typing :adl)
 
-    (:types libros_catalog mes - object
-            ;l_leido l_porleer - libros_catalog
-    )
+  ;; Tipos
+  (:types llibre mes - object)
+
+  ;; Predicados
+  (:predicates
+    (llegit ?llibre - llibre)
+    (vol-llegir ?llibre - llibre)
+    (predecesor ?libre - llibre ?predecesor - llibre)
+    (mes_valid ?mes - mes))
+
+  (:action llegir
+    :parameters (?llibrev - llibre ?mes_ - mes)
+    :precondition (and (mes_valid ?mes_)
+                       (vol-llegir ?llibrev)
+                       (forall (?l - llibre)
+                               (predecesor ?l ?llibrev)
+                               (imply (llegit ?l))))
+    :effect (and (not (mes_valid ?mes_))
+                 (not (vol-llegir ?llibrev))
+                 (llegit ?llibrev))
+  )
+)
 
 
-    (:predicates
-        (predecesor ?l1 - libros_catalog ?l2 - libros_catalog)
-        (leido ?l - libros_catalog)
-        ;(paralelos ?l1 - libros_catalog ?l2 - libros_catalog)
-        (mes_lectura ?l - libros_catalog ?m - mes)
-        (mes_anterior ?m1 - mes ?m2 - mes)
-    )
+
+
+  ;  (:action llegirpos
+   ; :parameters (?llibrepre - llibre ?llibre - llibre ?mes -mes)
+   ; :precondition (and (predecesor ?llibrepre ?llibre) (llegit ?llibrepre) (vol-llegir ?llibre) (mes_valid ?mes) )
+                      ;;(forall (?predecesor - llibre) (llegit ?predecesor)))
+                     ;;(not (predecesor ?llibre ?predecesor))    (and (llegit ?predecesor)))))
+    ;:effect (and (llegit ?llibre) (not (vol-llegir ?llibre)) (pla-lectura ?llibre ?mes))
+  ;)
 
 
 
-    (:functions 
-        (libros_leidos) ;?l - libros_catalog)
-        ;(mes_lectura ?l - libros_catalog)
-    )
+  ;; Acciones
 
-
-    ; 1. leer predecesor
-
-    (:action leer
-        :parameters (?l1 - libros_catalog ?m1 - mes ?l2 - libros_catalog ?m2 - mes) 
-        :precondition (and 
-                        (not(leido ?l1))
-                        (mes_lectura ?l2 ?m2)
-                        (mes_anterior ?m2 ?m1) 
-                        (imply (predecesor ?l2 ?l1) (mes_anterior ?m2 ?m1))
-                        
-                        ;(imply (not (predecesor ?l2 ?l1)) (not (= ?m2 ?m1)))
-                      )
-
-        :effect (and 
-                    (increase (libros_leidos) 1)
-                    (mes_lectura ?l1 ?m1)
-                    (leido ?l1)
-                    
-        )        
-    )
-    
-
+  
 )
