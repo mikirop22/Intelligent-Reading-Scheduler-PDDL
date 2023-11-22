@@ -1,33 +1,26 @@
-(define (problem libros_recomendacion)
-    (:domain recomendacion_libros)
+(define (problem PlanLectura-problema)
+  (:domain PlanLectura)
 
-    (:objects Harry1 Harry2 Harry3 Spiderman HanselyGrettel - libros_catalog
-            Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre - mes
-    )
+  ;; Objetos
+  (:objects
+    llibre1 llibre2 llibre3 llibre45 llibre70 - llibre
+    gener febrer març abril maig juny juliol agost setembre octubre novembre desembre - mes
+  )
 
-    (:init
-        (mes_anterior Enero Febrero)
-        (mes_anterior Febrero Marzo)
-        (mes_anterior Marzo Abril)
-        (mes_anterior Abril Mayo)
-        (mes_anterior Mayo Junio)
-        (mes_anterior Junio Julio)
-        (mes_anterior Julio Agosto)
-        (mes_anterior Agosto Septiembre)
-        (mes_anterior Septiembre Octubre)
-        (mes_anterior Octubre Noviembre)
-        (mes_anterior Noviembre Diciembre)
-        (mes_anterior Diciembre Enero)
-        (= (libros_leidos) 2)
-        (leido Harry1)
-        (mes_lectura Harry1 Enero)
-        (leido Harry2)
-        (mes_lectura Harry2 Febrero)
-        
-    )
+  ;; Inicialización
+  (:init
+    (mes_valid gener)
+    (mes_valid febrer)
+    (llegit llibre1)
+    (vol-llegir llibre2)
+    ;;(vol-llegir llibre45)
+    ;;(vol-llegir llibre70)
+    (predecesor llibre1 llibre2)
+    ;(predecesor llibre2 llibre3)
+  )
 
-    (:goal (forall (?l - libros_catalog) (leido ?l)))
-
-    (:metric minimize (libros_leidos))
+  ;; Meta
+  (:goal (forall (?llibre - llibre) (imply(vol-llegir ?llibre) (llegit ?llibre))))
+  ;;(:goal (forall (?llibre - llibre)(imply (vol-llegir ?llibre)(and (llegit ?llibre)(forall (?predecesor - llibre)(imply (predecesor ?llibre ?predecesor)(llegit ?predecesor)))))))
 
 )
