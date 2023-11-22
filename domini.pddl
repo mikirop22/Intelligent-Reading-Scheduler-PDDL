@@ -20,7 +20,7 @@
 (:action llegir
   :parameters (?llibre - llibre ?mes - mes)
   :precondition (and (vol-llegir ?llibre) 
-                     (<(mesos ?mes)4) 
+                     (<(mesos ?mes)3) 
                      (or (not (exists (?predecesor - llibre) (predecesor ?predecesor ?llibre)))
                          (exists (?predecesor - llibre) (and (predecesor ?predecesor ?llibre) (llegit ?predecesor)))
                      )
@@ -35,7 +35,7 @@
 
   (:action llegir_pre
     :parameters (?llibre - llibre ?mes -mes)
-    :precondition (and (<(mesos ?mes)4) 
+    :precondition (and (<(mesos ?mes)3) 
                        (exists (?next_llibre - llibre) (and (predecesor ?llibre ?next_llibre) (vol-llegir ?next_llibre)))
                   )
     :effect (and (llegit ?llibre) 
