@@ -27,7 +27,7 @@
                      (or (not (exists (?predecesor - llibre) (predecesor ?predecesor ?llibre)))
                          (exists (?predecesor - llibre ?mes_anterior -mes) (and (predecesor ?predecesor ?llibre) 
                                                              (llegit ?predecesor) 
-                                                             (pla_lectura ?predecesor ?mes_anterior)
+                                                             (mes_anterior ?mes_anterior ?mes)
                                                              ))
                      )
                 )
