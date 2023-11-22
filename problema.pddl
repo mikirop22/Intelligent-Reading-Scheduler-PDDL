@@ -9,6 +9,8 @@
 
   ;; Inicialización
   (:init
+    (=(mesos gener)0)
+    (=(mesos febrer)0)
     (mes_valid gener)
     (mes_valid febrer)
     ;(llegit llibre1)
