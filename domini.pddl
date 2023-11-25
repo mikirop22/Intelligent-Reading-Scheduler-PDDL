@@ -17,10 +17,10 @@
     )
 
 
-    ;(:functions 
-       ; (libros_leidos) ;?l - libros_catalog)
-       ; (mes_leido ?m - mes)
-   ; )
+    (:functions 
+       (paginas_libro ?l - libros_catalog)
+       (pagines_mes ?m - mes)
+    )
 
     ; 1. accion de leer si tenemos libros predecesores y paralelos
     (:action leer
@@ -39,12 +39,14 @@
                         ) 
 
                         (mes_anterior ?m2 ?m1)
+
+                        (<(pagines_mes ?m1)800)
                       
                       )
 
         :effect (and (leido ?l1)
                      (mes_lectura ?l1 ?m1)
-                     ;(when (quiere_leer ?l1) (increase (llegits) 1))
+                     (increase (pagines_mes ?m1) (paginas_libro ?l1))
                 )
     )
 
