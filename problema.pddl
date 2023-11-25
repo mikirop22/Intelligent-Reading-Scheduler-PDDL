@@ -63,7 +63,7 @@
         (paralelos StarWarsJedi StarWars1)
         (paralelos StarWarsDark StarWars1)
         
-        (=(paginas_libro Spiderman1)200)
+        (=(paginas_libro Spiderman1)700)
         (=(paginas_libro Spiderman2)200)
         (=(paginas_libro Spiderman3)200)
         (=(paginas_libro Spiderman4)200)

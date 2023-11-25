@@ -40,7 +40,7 @@
 
                         (mes_anterior ?m2 ?m1)
 
-                        (<(pagines_mes ?m1)800)
+                        (< (+ (pagines_mes ?m1) (paginas_libro ?l1)) 800)
                       
                       )
 
