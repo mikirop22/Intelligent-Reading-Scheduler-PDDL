@@ -1,7 +1,9 @@
 (define (problem PlanLectura_Problema)
     (:domain PlanLectura)
 
-    (:objects Harry1 Harry2 Harry3 Spiderman1 Spiderman2 Spiderman3 HanselyGrettel Vengadores CapitanAmerica IronMan - libros_catalog
+    (:objects Harry1 Harry2 Harry3 Spiderman1 Spiderman2 Spiderman3 Spiderman4 Spiderman5 
+                HanselyGrettel Vengadores CapitanAmerica IronMan 
+                StarWarsJedi StarWarsDark StarWars1 - libros_catalog
             Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre - mes
     )
 
@@ -25,19 +27,28 @@
         (predecesor Harry1 Harry2)
         ;(leido Harry2)
         ;(mes_lectura Harry2 Febrero)
-        (quiere_leer Harry2)
-        ;(predecesor Harry2 Harry3)
-        ;(quiere_leer Harry3)
-        ;(quiere_leer HanselyGrettel)
+        ;(quiere_leer Harry2)
+        (predecesor Harry2 Harry3)
+        (quiere_leer Harry3)
+        (quiere_leer HanselyGrettel)
         ;(leido Spiderman1)
         ;(mes_lectura Spiderman1 Febrero)
+        
         (predecesor Spiderman1 Spiderman2)
         (predecesor Spiderman2 Spiderman3)
-        (quiere_leer Spiderman3)
+        (predecesor Spiderman3 Spiderman4)
+        (predecesor Spiderman4 Spiderman5)
+        (leido Spiderman3)
+        (mes_lectura Spiderman3 Febrero)
+        (quiere_leer Spiderman5)
 
-        (quiere_leer Vengadores)
-        (predecesor CapitanAmerica Vengadores)
-        (predecesor IronMan Vengadores)
+        ;(quiere_leer Vengadores)
+        ;(predecesor CapitanAmerica Vengadores)
+        ;(predecesor IronMan Vengadores)
+
+        (quiere_leer StarWars1)
+        (paralelos StarWarsJedi StarWars1)
+        (paralelos StarWarsDark StarWars1)
         
     )
 
