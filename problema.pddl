@@ -11,6 +11,7 @@
   (:init
     (mes_valid gener)
     (mes_anterior gener febrer)
+    (mes_anterior febrer març)
     ;(llegit llibre1)
     (vol-llegir llibre2)
     ;(vol-llegir llibre45)
