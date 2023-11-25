@@ -31,7 +31,11 @@
                           (forall (?l2 - libros_catalog) 
                                     (imply (predecesor ?l2 ?l1) 
                                         (and (leido ?l2)
-                                        (mes_lectura ?l2 ?m2)) )))
+                                        (mes_lectura ?l2 ?m2)) ))
+                           (forall (?l3  - libros_catalog)
+                                    (imply (paralelos ?l3 ?l1)
+                                        (and (leido ?l3)
+                                        (mes_lectura ?l3 ?m1) ) )))
                       (mes_anterior ?m2 ?m1)
 
                       )
