@@ -17,23 +17,29 @@
     )
 
 
-    (:functions 
-        (libros_leidos) ;?l - libros_catalog)
-        (mes_leido ?m - mes)
-    )
+    ;(:functions 
+       ; (libros_leidos) ;?l - libros_catalog)
+       ; (mes_leido ?m - mes)
+   ; )
 
-    ; 1. leer libro a no ser que un predecesor no se haya leido
+    ; 1. accion de leer si tenemos libros predecesores y paralelos
     (:action leer
-        :parameters (?l1 - libros_catalog ?m1 - mes ?m2 - mes) ;?l2 - libros_catalog ?m2 - mes)
+        :parameters (?l1 - libros_catalog ?m1 - mes ?m2 - mes)
         :precondition (and
-                      (not(leido ?l1))
-                      (or (not (exists (?l2 - libros_catalog) (predecesor ?l2 ?l1)))
-                          (forall (?l2 - libros_catalog) 
-                                    (imply (predecesor ?l2 ?l1) 
-                                        (and (leido ?l2)
-                                        (mes_lectura ?l2 ?m2)) )))
-                      (mes_anterior ?m2 ?m1)
+                        (not(leido ?l1)) 
+                        
+                        (forall (?l2 - libros_catalog)
+                                (imply (predecesor ?l2 ?l1) 
+                                (and (leido ?l2) (mes_lectura ?l2 ?m2))) 
+                        )
+                
+                        (forall (?l2 - libros_catalog) 
+                            (imply (paralelos ?l2 ?l1) 
+                                (and (leido ?l2) (mes_lectura ?l2 ?m1)))
+                        ) 
 
+                        (mes_anterior ?m2 ?m1)
+                      
                       )
 
         :effect (and (leido ?l1)
@@ -41,5 +47,6 @@
                      ;(when (quiere_leer ?l1) (increase (llegits) 1))
                 )
     )
+
 
 )
