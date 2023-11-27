@@ -70,6 +70,9 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             mes_anterior = meses[mes-1]
             file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
 
+        for mes in meses: 
+            file.write(f"    (=(lectura_mes {mes})0)\n")
+
         file.write(f"  )\n\n")
         file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n)\n")
 
