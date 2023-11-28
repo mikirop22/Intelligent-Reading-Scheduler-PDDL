@@ -1,7 +1,7 @@
 import random
 
 
-semilla = 8
+semilla = 19
 random.seed(semilla)
 
 
