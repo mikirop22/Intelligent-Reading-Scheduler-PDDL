@@ -1,7 +1,7 @@
 import random
 
 
-semilla = 19
+semilla = 88
 random.seed(semilla)
 
 
@@ -29,11 +29,11 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
         for libro in libros_quiere_leer:
             file.write(f"    (quiere_leer {libro})\n")
-            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 300)})\n")
+            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 800)})\n")
 
 
         for libro in libros_catalogo:
-            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 300)})\n")
+            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 800)})\n")
 
         for _ in range(random.randint(0,num_libros_quiere_leer)): #hay entre 0 y un num que el usuario ya ha leido 
             libro_leido = random.choice(libros_catalogo)
@@ -42,27 +42,31 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
 
         predecesors=[]
-        for _ in range(random.randint(0, num_libros_catalogo/2)): #hi haura 0 o mes llibres amb predecesor
+        for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
             numero = int(libro1[5:]) #agafem el numero del llibre
             if numero == num_libros_catalogo+num_libros_quiere_leer:
+                libro1=f"Libro{numero-2}"
                 numero = numero-1
-            numero += 1
+            else:
+                numero += 1 
             libro2 = f"Libro{numero}"
-            if libro1 not in predecesors:
+            if libro2 not in predecesors:
                 file.write(f"    (predecesor {libro1} {libro2})\n")
                 predecesors.append(libro1)
 
         paralels=[]
-        for _ in range(random.randint(0, num_libros_catalogo/2)): #hi haura 0 o mes llibres amb predecesor
+        for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
             numero = int(libro1[5:]) #agafem el numero del llibre
             if numero == num_libros_catalogo+num_libros_quiere_leer:
+                libro1=f"Libro{numero-2}"
                 numero = numero-1
-            numero += 1
+            else:
+                numero += 1 
             libro2 = f"Libro{numero}"
-            if libro1 not in paralels:
-                file.write(f"    (paralels {libro1} {libro2})\n")
+            if libro2 not in paralels:
+                file.write(f"    (paralelos {libro1} {libro2})\n")
                 predecesors.append(libro1)
         
 
@@ -80,7 +84,9 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
 
 
-num_libros_quiere_leer = random.randint(1,5)
-num_libros_catalogo = random.randint(5,12)
+
+
+num_libros_quiere_leer = random.randint(1,5) #numero de llibres que vol llegir (entre 1 i 5)
+num_libros_catalogo = random.randint(5,12) #numero de llibres totals,+ els que vol llegir (entre 5,12)
 generate_random(num_libros_quiere_leer, num_libros_catalogo)
  
