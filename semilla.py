@@ -1,7 +1,7 @@
 import random
 
 
-semilla = 88
+semilla = 89
 random.seed(semilla)
 
 
@@ -53,23 +53,22 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             else:
                 numero += 1 
             libro2 = f"Libro{numero}"
-            if libro2 not in predecesors:
+            if (libro1, libro2) and (libro2, libro1) not in predecesors: # mirem que un llibre no pot ser predecessor del mateix llibre més d'una vegada
                 file.write(f"    (predecesor {libro1} {libro2})\n")
-                predecesors.append(libro1)
+                predecesors.append((libro1, libro2))
 
-        paralels=[]
+        #paralels=[]
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
             numero = int(libro1[5:]) #agafem el numero del llibre
             if numero == num_libros_catalogo+num_libros_quiere_leer:
                 libro1=f"Libro{numero-1}"
-
             else:
                 numero += 1 
             libro2 = f"Libro{numero}"
-            if libro2 not in paralels:
-                file.write(f"    (paralelos {libro1} {libro2})\n")
-                predecesors.append(libro1)
+            #if libro2 not in paralels:
+            file.write(f"    (paralelos {libro1} {libro2})\n")
+                #predecesors.append(libro1)
         
 
         for mes in range(len(meses)):
