@@ -2,7 +2,6 @@
     (:requirements :strips :typing :adl :fluents)
 
     (:types libros_catalog mes - object
-            ;l_leido l_porleer - libros_catalog
     )
 
 
