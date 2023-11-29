@@ -9,13 +9,13 @@ random.seed(semilla)
 def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         
    
-    libros_quiere_leer = set()
+    libros_quiere_leer = set() #tria llibres que vol llegir aleatoriament
     while len(libros_quiere_leer) < num_libros_quiere_leer:
         numero = random.randint(0, num_libros_quiere_leer + num_libros_catalogo)
         libro = f"Libro{numero}"
         libros_quiere_leer.add(libro)
 
-    # Convierte el conjunto de nuevo a una lista 
+    # Convierteix el set a una lista 
     libros_quiere_leer = list(libros_quiere_leer)
 
     libros_catalogo=[]
