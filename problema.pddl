@@ -1,7 +1,9 @@
-(define (problem libros_recomendacion)
-    (:domain recomendacion_libros)
+(define (problem PlanLectura_Problema)
+    (:domain PlanLectura)
 
-    (:objects Harry1 Harry2 Harry3 Spiderman HanselyGrettel - libros_catalog
+    (:objects Harry1 Harry2 Harry3 Spiderman1 Spiderman2 Spiderman3 Spiderman4 Spiderman5 
+                HanselyGrettel Vengadores CapitanAmerica IronMan 
+                StarWarsJedi StarWarsDark StarWars1 - libros_catalog
             Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre - mes
     )
 
@@ -18,16 +20,62 @@
         (mes_anterior Octubre Noviembre)
         (mes_anterior Noviembre Diciembre)
         (mes_anterior Diciembre Enero)
-        (= (libros_leidos) 2)
+        (=(pagines_mes Enero)0)
+        (=(pagines_mes Febrero)0)
+        (=(pagines_mes Marzo)0)
+        (=(pagines_mes Abril)0)
+        (=(pagines_mes Mayo)0)
+        (=(pagines_mes Junio)0)
+        (=(pagines_mes Julio)0)
+        (=(pagines_mes Agosto)0)
+        (=(pagines_mes Septiembre)0)
+        (=(pagines_mes Octubre)0)
+        (=(pagines_mes Noviembre)0)
+        (=(pagines_mes Diciembre)0)
+        ;(mesactual Febrero)
+        ;(= (libros_leidos) 2)
         (leido Harry1)
         (mes_lectura Harry1 Enero)
-        (leido Harry2)
-        (mes_lectura Harry2 Febrero)
+        (predecesor Harry1 Harry2)
+        ;(leido Harry2)
+        ;(mes_lectura Harry2 Febrero)
+        ;(quiere_leer Harry2)
+        (predecesor Harry2 Harry3)
+        (quiere_leer Harry3)
+        (quiere_leer HanselyGrettel)
+        ;(leido Spiderman1)
+        ;(mes_lectura Spiderman1 Febrero)
         
+        (predecesor Spiderman1 Spiderman2)
+        (predecesor Spiderman2 Spiderman3)
+        (predecesor Spiderman3 Spiderman4)
+        (predecesor Spiderman4 Spiderman5)
+        ;(leido Spiderman3)
+        ;(mes_lectura Spiderman3 Febrero)
+        (quiere_leer Spiderman5)
+        
+
+        ;(quiere_leer Vengadores)
+        ;(predecesor CapitanAmerica Vengadores)
+        ;(predecesor IronMan Vengadores)
+
+        (quiere_leer StarWars1)
+        (paralelos StarWarsJedi StarWars1)
+        (paralelos StarWarsDark StarWars1)
+        
+        (=(paginas_libro Spiderman1)700)
+        (=(paginas_libro Spiderman2)800)
+        (=(paginas_libro Spiderman3)200)
+        (=(paginas_libro Spiderman4)200)
+        (=(paginas_libro Spiderman5)200)
+        (=(paginas_libro Harry2)200)
+        (=(paginas_libro Harry3)200)
+        (=(paginas_libro StarWarsJedi)200)
+        (=(paginas_libro StarWarsDark)200)
+        (=(paginas_libro StarWars1)200)
+        (=(paginas_libro HanselyGrettel)200)
     )
 
-    (:goal (forall (?l - libros_catalog) (leido ?l)))
-
-    (:metric minimize (libros_leidos))
+    (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))
 
 )
