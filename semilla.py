@@ -48,9 +48,8 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
             numero = int(libro1[5:]) #agafem el numero del llibre
-            if numero == num_libros_catalogo+num_libros_quiere_leer:
-                libro1=f"Libro{numero-2}"
-                numero = numero-1
+            if numero == num_libros_catalogo+num_libros_quiere_leer: #ultim numero
+                libro1=f"Libro{numero-1}" # el predecessor
             else:
                 numero += 1 
             libro2 = f"Libro{numero}"
@@ -63,8 +62,8 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
             numero = int(libro1[5:]) #agafem el numero del llibre
             if numero == num_libros_catalogo+num_libros_quiere_leer:
-                libro1=f"Libro{numero-2}"
-                numero = numero-1
+                libro1=f"Libro{numero-1}"
+
             else:
                 numero += 1 
             libro2 = f"Libro{numero}"
