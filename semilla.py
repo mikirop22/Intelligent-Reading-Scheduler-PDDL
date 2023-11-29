@@ -1,7 +1,7 @@
 import random
 
 
-semilla = 2
+semilla = input("Introduzca una semilla (int): ")
 random.seed(semilla)
 
 
@@ -38,23 +38,34 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         file.write(f"  )\n\n")
         file.write(f"  (:init\n")
         
-
+        paginas=[] #llista que sap quantes pagines te cada llibre
         for libro in libros_quiere_leer:
+            num = random.randint(100, 800)
             file.write(f"    (quiere_leer {libro})\n")
-            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 800)})\n")
+            file.write(f"    (=(paginas_libro {libro}) {num})\n")
+            x = [libro,num]
+            paginas.append(x)
 
 
         for libro in libros_catalogo:
-            file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 800)})\n")
+            num = random.randint(100, 800)
+            file.write(f"    (=(paginas_libro {libro}) {num})\n")
+            x = [libro,num]
+            paginas.append(x)
 
         libros = []
+        llegits = []
+        m = [] #que el usuari no hagi llegit més d'un llibre per mes
         for _ in range(random.randint(0,num_libros_quiere_leer)): #hay entre 0 y un num que el usuario ya ha leido 
             libro_leido = random.choice(libros_catalogo)
             mes_lectura = random.choice(meses)
-            if libro_leido not in libros:
+            if (libro_leido not in libros) and (mes_lectura not in m):
                 libros.append(libro_leido)
                 file.write(f"    (leido {libro_leido})\n")
                 file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
+                x = [libro_leido, mes_lectura]
+                llegits.append(x)
+                m.append(mes_lectura)
 
         predecesors=[]
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
@@ -88,18 +99,24 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
 
         for mes in meses: 
-            file.write(f"    (=(pagines_mes {mes})0)\n")
-
+            num = 0
+            for l in llegits: #itera en els llibres llegits per l'usuari
+                if mes == l[1]: #si l'usuari ha llegit llibre en aquest mes
+                    for p in paginas: 
+                        if p[0]==l[0]:
+                            num = p[1]
+            file.write(f"    (=(pagines_mes {mes}){num})\n") #escriurà que aquell mes ja ha llegit x pagines
+                
         file.write(f"  )\n\n")
         file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n)\n")
 
-    print("Archivo de problema PDDL generado de nuevo: random_problem.pddl")
+    print("Archivo de problema PDDL generado con éxito. Su nombre es: random_problem.pddl")
 
 
 
 
 
-num_libros_quiere_leer = random.randint(5,12) #numero de llibres que vol llegir (entre 1 i 5)
-num_libros_catalogo = random.randint(12,20) #numero de llibres totals,+ els que vol llegir (entre 5,12)
+num_libros_quiere_leer = random.randint(3,7) #numero de llibres que vol llegir (entre 1 i 5)
+num_libros_catalogo = random.randint(8,12) #numero de llibres totals,+ els que vol llegir (entre 5,12)
 generate_random(num_libros_quiere_leer, num_libros_catalogo)
  
