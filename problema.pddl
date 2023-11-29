@@ -78,6 +78,4 @@
 
     (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))
 
-    ;(:metric minimize (libros_leidos))
-
 )
