@@ -35,11 +35,14 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         for libro in libros_catalogo:
             file.write(f"    (=(paginas_libro {libro}) {random.randint(100, 800)})\n")
 
+        libros = []
         for _ in range(random.randint(0,num_libros_quiere_leer)): #hay entre 0 y un num que el usuario ya ha leido 
             libro_leido = random.choice(libros_catalogo)
             mes_lectura = random.choice(meses)
-            file.write(f"    (leido {libro_leido})\n")
-            file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
+            if libro_leido not in libros:
+                libros.append(libro_leido)
+                file.write(f"    (leido {libro_leido})\n")
+                file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
 
         predecesors=[]
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
