@@ -35,7 +35,7 @@
                         )
                 
                         (forall (?l2 - libros_catalog) 
-                                (imply (or(paralelos ?l2 ?l1)(paralelos ?l1 ?l2))
+                                (imply (paralelos ?l2 ?l1)
                                         (and (leido ?l2) (or (mes_lectura ?l2 ?m1) (mes_lectura ?l2 ?m2))))
                         )                       
 
