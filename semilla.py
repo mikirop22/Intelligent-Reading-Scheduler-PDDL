@@ -11,7 +11,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
    
     libros_quiere_leer = set() #tria llibres que vol llegir aleatoriament
     while len(libros_quiere_leer) < num_libros_quiere_leer:
-        numero = random.randint(0, num_libros_quiere_leer + num_libros_catalogo)
+        numero = random.randint(1, num_libros_quiere_leer + num_libros_catalogo)
         libro = f"Libro{numero}"
         libros_quiere_leer.add(libro)
 
@@ -20,7 +20,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
     libros_catalogo=[]
     for i in range (num_libros_catalogo + num_libros_quiere_leer):
-        libro = f"Libro{i}"
+        libro = f"Libro{i+1}"
         if libro not in libros_quiere_leer:
             libros_catalogo.append(libro)
 
@@ -38,34 +38,34 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         file.write(f"  )\n\n")
         file.write(f"  (:init\n")
         
-        paginas=[] #llista que sap quantes pagines te cada llibre
+        paginas={} #diccionari que sap quantes pagines te cada llibre
         for libro in libros_quiere_leer:
             num = random.randint(100, 800)
             file.write(f"    (quiere_leer {libro})\n")
             file.write(f"    (=(paginas_libro {libro}) {num})\n")
-            x = [libro,num]
-            paginas.append(x)
+            paginas[libro] = num
 
 
         for libro in libros_catalogo:
             num = random.randint(100, 800)
             file.write(f"    (=(paginas_libro {libro}) {num})\n")
-            x = [libro,num]
-            paginas.append(x)
+            paginas[libro] = num
+
 
         libros = []
-        llegits = []
-        m = [] #que el usuari no hagi llegit més d'un llibre per mes
+        mesos = {} #diccionari mesos que dira per cada mes quantes pàgines ha llegit
         for _ in range(random.randint(0,num_libros_quiere_leer)): #hay entre 0 y un num que el usuario ya ha leido 
             libro_leido = random.choice(libros_catalogo)
             mes_lectura = random.choice(meses)
-            if (libro_leido not in libros) and (mes_lectura not in m):
+            mesos[mes_lectura] = mesos.get(mes_lectura, 0) # Verificar si la clau existeix y assignar 0 si no existeix
+            if mesos[mes_lectura] + paginas[libro_leido] > 800: # si les pagines en aquest mes superaran les 800
+                continue # passem a generar un altre llibre llegit
+            if libro_leido not in libros: # si el llibre no ha estat ja declarat com a llegit
+                mesos[mes_lectura] += paginas[libro_leido] 
                 libros.append(libro_leido)
                 file.write(f"    (leido {libro_leido})\n")
                 file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
-                x = [libro_leido, mes_lectura]
-                llegits.append(x)
-                m.append(mes_lectura)
+                
 
         predecesors=[]
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
@@ -99,12 +99,8 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
 
         for mes in meses: 
-            num = 0
-            for l in llegits: #itera en els llibres llegits per l'usuari
-                if mes == l[1]: #si l'usuari ha llegit llibre en aquest mes
-                    for p in paginas: 
-                        if p[0]==l[0]:
-                            num = p[1]
+            mesos[mes] = mesos.get(mes, 0)
+            num = mesos[mes]
             file.write(f"    (=(pagines_mes {mes}){num})\n") #escriurà que aquell mes ja ha llegit x pagines
                 
         file.write(f"  )\n\n")
