@@ -62,7 +62,8 @@ WHITE = (255,255,255)
 clock = pygame.time.Clock()
 
 # Puntuación inicial
-font = pygame.font.Font(None, 20)
+fontl = pygame.font.Font(None, 15)
+fontc = pygame.font.Font(None, 25)
 text_color = BLACK
 
 # Bandera para controlar si el juego está terminado
@@ -122,12 +123,12 @@ while not done:
             done = True
             
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            index_llibre += 1
                 
-            if index_llibre >= len(lista_ordenada):
+            if index_llibre+1 >= len(lista_ordenada):
                 done = True
                 break
-
+            else:
+                index_llibre += 1
     # Dibujar el fondo en la pantalla
     screen.blit(background, (0, 0))
 
@@ -136,8 +137,8 @@ while not done:
     screen.blit(llegint_images[current_llegint_index], (150, 200))
 
     screen.blit(calendario, (10, 10))
-    screen.blit(font.render(lista_ordenada[index_llibre][1], True, BLACK), (82,78))
-    screen.blit(font.render(lista_ordenada[index_llibre][0], True, BLACK), (272, 360))       
+    screen.blit(fontc.render(lista_ordenada[index_llibre][1], True, BLACK), (55,78))
+    screen.blit(fontl.render(lista_ordenada[index_llibre][0], True, BLACK), (265, 355))       
 
     # Actualizar la pantalla
     pygame.display.flip()
