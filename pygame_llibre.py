@@ -93,10 +93,10 @@ lista_final = libros_y_meses.copy()
 for mes_faltante in sorted(meses_faltantes, key=lambda x: meses_orden[x]):
     lista_final.append(('', mes_faltante))
 
-print(lista_final)
+
 # Ordenar la lista de listas por el número correspondiente al mes
 lista_ordenada = sorted(lista_final, key=lambda x: meses_orden.get(x[1], float('inf')))
-print("llsta final:",lista_ordenada)
+
 
 
 index_llibre = 0
@@ -131,15 +131,18 @@ while not done:
                 index_llibre += 1
     # Dibujar el fondo en la pantalla
     screen.blit(background, (0, 0))
-
-    # Cambiar la imagen `foreground` según el índice actual
-    current_llegint_index = index_llibre % len(llegint_images)
-    screen.blit(llegint_images[current_llegint_index], (150, 200))
-
     screen.blit(calendario, (10, 10))
     screen.blit(fontc.render(lista_ordenada[index_llibre][1], True, BLACK), (55,78))
-    screen.blit(fontl.render(lista_ordenada[index_llibre][0], True, BLACK), (265, 355))       
+    # Cambiar la imagen `foreground` según el índice actual
+    
+    if lista_ordenada[index_llibre][0] != '':
+        
+        current_llegint_index = index_llibre % len(llegint_images)
+        screen.blit(llegint_images[current_llegint_index], (150, 200))
+        screen.blit(fontl.render(lista_ordenada[index_llibre][0], True, BLACK), (265, 355))       
 
+    else:
+        screen.blit(fontc.render(lista_ordenada[index_llibre][1], True, BLACK), (55,78))
     # Actualizar la pantalla
     pygame.display.flip()
 
