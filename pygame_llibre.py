@@ -1,6 +1,6 @@
 import pygame, sys, os
 
-with open('output.txt', 'r', encoding='utf-16') as file:
+with open('output.txt', 'r') as file:
     # Lee todas las líneas del archivo
     lines = file.readlines()
 
@@ -22,6 +22,7 @@ with open('output.txt', 'r', encoding='utf-16') as file:
 
 
 # Ahora, plan_steps contiene los pasos del plan como elementos de la lista
+print(plan_steps)
 
 
 libros_y_meses = []  # Lista para almacenar el nombre del libro y el mes de cada elemento
@@ -46,7 +47,6 @@ for paso in range(len(plan_steps)-1):
 
         # Agregar el nombre del libro y el primer mes a la lista
         libros_y_meses.append((nombre_libro, primer_mes))
-
 
 
 
@@ -75,11 +75,24 @@ llegint_images = [pygame.image.load(f"llegint{i}.png").convert_alpha() for i in 
 for img in llegint_images:
     img.set_colorkey(WHITE)
 calendario_original = pygame.image.load("calendari.png").convert_alpha()
+hivern = pygame.image.load("hivern.jpg").convert_alpha()
+primavera = pygame.image.load("primavera.jpg").convert_alpha()
+estiu = pygame.image.load("estiu.jpg").convert_alpha()
+tardor = pygame.image.load("tardor.jpg").convert_alpha()
+
+
 
 
 calendario_ancho = 200  
 calendario_alto = 150  
 calendario = pygame.transform.scale(calendario_original, (calendario_ancho, calendario_alto))
+
+x = 230
+y = 180
+hivern = pygame.transform.scale(hivern, (x, y))
+primavera = pygame.transform.scale(primavera, (x, y))
+estiu = pygame.transform.scale(estiu, (x, y))
+tardor = pygame.transform.scale(tardor, (x, y))
 
 
 mesos = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"]
@@ -133,6 +146,15 @@ while not done:
     screen.blit(background, (0, 0))
     screen.blit(calendario, (10, 10))
     screen.blit(fontc.render(lista_ordenada[index_llibre][1], True, BLACK), (55,78))
+    if lista_ordenada[index_llibre][1] == "ENERO" or lista_ordenada[index_llibre][1] == "FEBRERO" or lista_ordenada[index_llibre][1] == "DICIEMBRE":
+        screen.blit(hivern, (220,20))
+    if lista_ordenada[index_llibre][1] == "MARZO" or lista_ordenada[index_llibre][1] == "ABRIL" or lista_ordenada[index_llibre][1] == "MAYO":
+        screen.blit(primavera, (220,20))
+    if lista_ordenada[index_llibre][1] == "JUNIO" or lista_ordenada[index_llibre][1] == "JULIO" or lista_ordenada[index_llibre][1] == "AGOSTO":
+        screen.blit(estiu, (220,20))
+    if lista_ordenada[index_llibre][1] == "SEPTIEMBRE" or lista_ordenada[index_llibre][1] == "OCTUBRE" or lista_ordenada[index_llibre][1] == "NOVIEMBRE":
+        screen.blit(tardor, (220,20))
+
     # Cambiar la imagen `foreground` según el índice actual
     
     if lista_ordenada[index_llibre][0] != '':
