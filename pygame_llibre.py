@@ -75,10 +75,10 @@ llegint_images = [pygame.image.load(f"llegint{i}.png").convert_alpha() for i in 
 for img in llegint_images:
     img.set_colorkey(WHITE)
 calendario_original = pygame.image.load("calendari.png").convert_alpha()
-hivern = pygame.image.load("hivern.jpg").convert_alpha()
-primavera = pygame.image.load("primavera.jpg").convert_alpha()
-estiu = pygame.image.load("estiu.jpg").convert_alpha()
-tardor = pygame.image.load("tardor.jpg").convert_alpha()
+hivern = pygame.image.load("hivern.png").convert_alpha()
+primavera = pygame.image.load("primavera.png").convert_alpha()
+estiu = pygame.image.load("estiu.png").convert_alpha()
+tardor = pygame.image.load("tardor.png").convert_alpha()
 
 
 
@@ -147,13 +147,13 @@ while not done:
     screen.blit(calendario, (10, 10))
     screen.blit(fontc.render(lista_ordenada[index_llibre][1], True, BLACK), (55,78))
     if lista_ordenada[index_llibre][1] == "ENERO" or lista_ordenada[index_llibre][1] == "FEBRERO" or lista_ordenada[index_llibre][1] == "DICIEMBRE":
-        screen.blit(hivern, (220,20))
+        screen.blit(hivern, (200,20))
     if lista_ordenada[index_llibre][1] == "MARZO" or lista_ordenada[index_llibre][1] == "ABRIL" or lista_ordenada[index_llibre][1] == "MAYO":
-        screen.blit(primavera, (220,20))
+        screen.blit(primavera, (200,20))
     if lista_ordenada[index_llibre][1] == "JUNIO" or lista_ordenada[index_llibre][1] == "JULIO" or lista_ordenada[index_llibre][1] == "AGOSTO":
-        screen.blit(estiu, (220,20))
+        screen.blit(estiu, (200,20))
     if lista_ordenada[index_llibre][1] == "SEPTIEMBRE" or lista_ordenada[index_llibre][1] == "OCTUBRE" or lista_ordenada[index_llibre][1] == "NOVIEMBRE":
-        screen.blit(tardor, (220,20))
+        screen.blit(tardor, (200,20))
 
     # Cambiar la imagen `foreground` según el índice actual
     
