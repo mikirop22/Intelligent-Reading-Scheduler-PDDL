@@ -29,15 +29,28 @@
                        
                         (mes_anterior ?m2 ?m1)
                         
+
                         (forall (?l2 - libros_catalog)
                                 (imply (predecesor ?l2 ?l1) 
                                 (and (leido ?l2) (mes_lectura ?l2 ?m2))) 
                         )
-                
-                        (forall (?l2 - libros_catalog) 
-                            (imply (paralelos ?l2 ?l1) 
-                                (and (leido ?l2) (or (mes_lectura ?l2 ?m1) (mes_lectura ?l2 ?m2))))
-                        ) 
+                        
+                        (not (exists (?l2 - libros_catalog) (and (paralelos ?l2 ?l1)
+                                                                    (not (leido ?l2))
+                                                            )
+                        
+                        ))
+                        
+
+                        ;(forall (?l2 - libros_catalog) 
+                            
+                              ;  (imply (paralelos ?l2 ?l1)
+                              ;      (and (leido ?l2) (or (mes_lectura ?l2 ?m1) (mes_lectura ?l2 ?m2))))
+                            
+                                ;(imply (paralelos ?l2 ?l1) 
+                                    ;(and (leido ?l2) (or (mes_lectura ?l2 ?m1) (mes_lectura ?l2 ?m2))))
+                               
+                        ;) 
 
                         (<= (+ (pagines_mes ?m1) (paginas_libro ?l1)) 800)
                       
@@ -45,6 +58,7 @@
 
         :effect (and (leido ?l1)
                      (mes_lectura ?l1 ?m1)
+                     ;(not (paralelos ?l1 ?l2))
                      (increase (pagines_mes ?m1) (paginas_libro ?l1))
                 )
     )
