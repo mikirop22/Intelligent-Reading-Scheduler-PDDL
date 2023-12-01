@@ -70,9 +70,11 @@ done = False
 
 # Cargar la imagen de fondo
 background = pygame.image.load("fons.jpg").convert()
-foreground = pygame.image.load("llegint3.png").convert_alpha()
+llegint_images = [pygame.image.load(f"llegint{i}.png").convert_alpha() for i in range(5)]
+for img in llegint_images:
+    img.set_colorkey(WHITE)
 calendario_original = pygame.image.load("calendari.png").convert_alpha()
-foreground.set_colorkey(WHITE)
+
 
 calendario_ancho = 200  
 calendario_alto = 150  
@@ -128,7 +130,11 @@ while not done:
 
     # Dibujar el fondo en la pantalla
     screen.blit(background, (0, 0))
-    screen.blit(foreground, (150,200))
+
+    # Cambiar la imagen `foreground` según el índice actual
+    current_llegint_index = index_llibre % len(llegint_images)
+    screen.blit(llegint_images[current_llegint_index], (150, 200))
+
     screen.blit(calendario, (10, 10))
     screen.blit(font.render(lista_ordenada[index_llibre][1], True, BLACK), (82,78))
     screen.blit(font.render(lista_ordenada[index_llibre][0], True, BLACK), (272, 360))       
