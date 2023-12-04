@@ -98,7 +98,6 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             if numero1 == numero2 or (libro2, libro1)in predecesors or (libro1, libro2) in predecesors:
                 continue
             else:
-                print((libro1, libro2))
                 paralels.append((libro1, libro2))
             
         primeros = []
