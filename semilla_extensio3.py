@@ -26,7 +26,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
 
     # Lista de meses
-    meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+    meses = ["Previo", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
     # Escribe el contenido del archivo
     with open("random_problem.pddl", "w") as file:
@@ -53,18 +53,18 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
 
         libros = []
-        mesos = {} #diccionari mesos que dira per cada mes quantes pàgines ha llegit
+        #mesos = {} #diccionari mesos que dira per cada mes quantes pàgines ha llegit
         for _ in range(random.randint(0,num_libros_quiere_leer)): #hay entre 0 y un num que el usuario ya ha leido 
             libro_leido = random.choice(libros_catalogo)
-            mes_lectura = random.choice(meses)
-            mesos[mes_lectura] = mesos.get(mes_lectura, 0) # Verificar si la clau existeix y assignar 0 si no existeix
-            if mesos[mes_lectura] + paginas[libro_leido] > 800: # si les pagines en aquest mes superaran les 800
-                continue # passem a generar un altre llibre llegit
+            #mes_lectura = random.choice(meses)
+            #mesos[mes_lectura] = mesos.get(mes_lectura, 0) # Verificar si la clau existeix y assignar 0 si no existeix
+            #if mesos[mes_lectura] + paginas[libro_leido] > 800: # si les pagines en aquest mes superaran les 800
+            #    continue # passem a generar un altre llibre llegit
             if libro_leido not in libros: # si el llibre no ha estat ja declarat com a llegit
-                mesos[mes_lectura] += paginas[libro_leido] 
+                #mesos[mes_lectura] += paginas[libro_leido] 
                 libros.append(libro_leido)
                 file.write(f"    (leido {libro_leido})\n")
-                file.write(f"    (mes_lectura {libro_leido} {mes_lectura})\n")
+                file.write(f"    (mes_lectura {libro_leido} Previo)\n")
                 
 
         predecesors=[]
@@ -165,9 +165,9 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
 
         for mes in meses: 
-            mesos[mes] = mesos.get(mes, 0)
-            num = mesos[mes]
-            file.write(f"    (=(pagines_mes {mes}){num})\n") #escriurà que aquell mes ja ha llegit x pagines
+            #mesos[mes] = mesos.get(mes, 0)
+            #num = mesos[mes]
+            file.write(f"    (=(pagines_mes {mes})0)\n") #escriurà que aquell mes ja ha llegit x pagines
                 
         file.write(f"  )\n\n")
         file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n)\n")
