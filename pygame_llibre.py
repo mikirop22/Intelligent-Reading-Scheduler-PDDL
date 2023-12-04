@@ -1,6 +1,6 @@
 import pygame, sys, os
 
-with open('output.txt', 'r') as file:
+with open('output.txt', 'r', encoding='utf-16') as file:
     # Lee todas las líneas del archivo
     lines = file.readlines()
 
