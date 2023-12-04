@@ -84,7 +84,26 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
                 file.write(f"    (predecesor {libro1} {libro2})\n")
                 predecesors.append((libro1, libro2))
 
-        print(predecesors)
+        visited = set()
+        def trobar_predecessor(librox, libroy):
+
+            for predecesor in predecesors:
+                if predecesor in visited:
+                    continue
+
+                if (librox == predecesor[1] and libroy == predecesor[0]) or (librox == predecesor[0] and libroy == predecesor[1]):
+                    return True
+                
+                elif librox == predecesor[0]:
+                    visited.add(predecesor)
+                    return trobar_predecessor(predecesor[1], libroy)
+                    
+                elif librox == predecesor[1]:
+                    visited.add(predecesor)
+                    return trobar_predecessor(predecesor[0], libroy)
+                        
+            return False
+        
         paralels=[]
         for _ in range(random.randint(0, num_libros_catalogo//2)): #hi haura 0 o mes llibres amb predecesor
             libro1 = random.choice(libros_quiere_leer + libros_catalogo)
@@ -95,7 +114,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             numero2 = int(libro2[5:]) #agafem el numero del llibre
             libro2 = f"Libro{numero2}"
             
-            if numero1 == numero2 or (libro2, libro1)in predecesors or (libro1, libro2) in predecesors:
+            if numero1 == numero2 or (libro2, libro1) in predecesors or (libro1, libro2) in predecesors or trobar_predecessor(libro1, libro2):
                 continue
             else:
                 paralels.append((libro1, libro2))
@@ -112,13 +131,28 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         # Concatenar las listas de primeros y restantes
         paralels_ordenados = primeros + restantes
 
+        visited = set()
+        def cadena_predecessor(librox):
+            for predecesor in predecesors:
+                if predecesor in visited:
+                    continue
+                
+                if librox == predecesor[0]:
+                    visited.add(predecesor)
+                    if predecesor[1] in libros_quiere_leer:
+                        return True
+                    else:
+                        return cadena_predecessor(predecesor[1])
+            
+            visited.add(predecesor) 
+
         for i, libros in enumerate(paralels_ordenados):
-            if (libros[1] in libros_quiere_leer) and libros[0] not in libros_quiere_leer:
+            if (libros[1] in libros_quiere_leer or cadena_predecessor(libros[1])) and libros[0] not in libros_quiere_leer:
                 libros_quiere_leer.append(libros[0])
-            elif (libros[1] in libros_quiere_leer) and libros[0] in libros_quiere_leer:
+            elif (libros[1] in libros_quiere_leer or cadena_predecessor(libros[1])) and libros[0] in libros_quiere_leer:
                 continue
             elif libros[0] in libros_quiere_leer:
-                paralels_ordenados[i] = (libros[1], libros[0])    
+                paralels_ordenados[i] = (libros[1], libros[0])     
             
         for libro in paralels_ordenados:        
             #if libro2 not in paralels:
