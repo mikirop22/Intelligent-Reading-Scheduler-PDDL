@@ -52,11 +52,13 @@ explicats anteriorment, els quals determinaran quins llibres vol llegir l'usuari
 disponibles al catàleg. A més a més, aquest estat inicial incorporarà informació sobre la
 quantitat de pàgines de cada llibre del catàleg i les relacions entre els llibres, ja siguin
 predecessors o paral·lels, depenent de l'extensió que estiguem considerant.
+
 També s'especificaran els llibres que l'usuari ja ha llegit. Hem assumit que l'usuari ha llegit
 aquests llibres en un any anterior. Per tant, hi ha mesos que corresponen a l'any anterior
 (mesos previs) a tots els mesos del nostre any actual. Aquesta configuració garanteix que la
 planificació assigni llibres als mesos de l'any actual. No tindria molt sentit que l'usuari llegís
 aquests llibres declarats com a llegits en l'any que estem planificant.
+
 Finalment, l'estat inicial també indicarà la relació temporal entre els diferents mesos,
 especificant quin mes és anterior a l'altre. Aquesta informació temporal és crucial per
 garantir una planificació coherent i efectiva.
