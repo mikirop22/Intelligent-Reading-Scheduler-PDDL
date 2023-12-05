@@ -9,64 +9,33 @@ dues restants seran del tipus 'mes' anomenades 'm1' i 'm2', que faràn referènc
 mesos. Tant 'libros_catalog' com 'mes' hereten de 'object'.
 
 ### 1. 2. PREDICATS
-Per a abordar aquest problema hem usat diferents predicats per a poder guiar el planificador
-a una solució.
-Per començar, hem definit un predicat anomenat 'quiere_leer', que té com a variable un
-objecte del tipus 'libros_catalog' per saber quins llibres vol llegir l'usuari. Seguidament, hem
-definit el predicat 'llegit', que, igual que el predicat anterior, utilitza una variable del tipus
-'libros_catalog' i ens indica si un llibre ha estat llegit. Per acabar, en els predicats que ens
-ajuden a definir el problema hem inclòs el predicat 'mes_anterior', el qual opera amb dues
-variables de tipus 'mes'; la primera variable 'm1' representa el mes anterior a la segona
-variable 'm2'. Aquests tres predicats són essencials per el desenvolupament del nostre
-modelat del problema.
-Un cop teníem aquests tres predicats, vam continuar definint el predicat 'predecesor', que
-utilitza dues variables del tipus 'libros_catalog' i ens indica que el primer llibre 'l1' és
-predecessor del segon llibre 'l2'. Aquest predicat és essencial per a poder implementar tant
-el nivell bàsic com l'extensió 1.
-A continuació, per assegurar-nos que els llibres que venen després del predecessor es
-llegeixin en un mes posterior, vam definir el predicat 'mes_lectura'. Aquest predicat fa servir
-dues variables: una que indica quin llibre s'ha llegit 'l1', del tipus 'libros_catalog', i una altra
-que indica el mes en què s'ha llegit el llibre 'm1', de tipus 'mes'. A més també utilitzem
-aquest predicat per a l'extensió dos, ja que ens hem d'assegurar que un llibre paral·lel sigui
-llegit en el mateix mes o el contigu.
-Per poder continuar amb l'extensió número 2, vam definir un nou predicat anomenat
-'paralelos'. Aquest predicat té dues variables del tipus 'libros_catalog', 'l1' i 'l2', les quals
-indiquen que aquests dos llibres són paral·lels.
-Finalment, per implementar l'extensió 3, vam definir dues "function". La primera, anomenada
-'paginas_libro', té una variable del tipus 'libros_catalog', i aquesta funció conté la informació
-sobre les pàgines de cada llibre del catàleg. La segona, anomenada 'pagines_mes', té una
-variable del tipus 'mes', i aquesta funció conté el nombre de pàgines llegides en el mes
-corresponent. Aquesta última serveix per assegurar-nos que no ens passem del límit de 800
-pàgines de cada mes.
+Per abordar aquest problema, hem utilitzat diferents predicats per a poder guiar el planificador a una solució:
+
+1. quiere_leer: Predicat amb una variable del tipus 'libros_catalog' per saber quins llibres vol llegir l'usuari.
+2. leido: Predicat que utilitza una variable del tipus 'libros_catalog' i ens indica si un llibre ha estat llegit.
+3. mes_anterior: Predicat que opera amb dues variables de tipus 'mes'; la primera variable 'm1' representa el mes anterior a la segona variable 'm2'. Aquests tres predicats són essencials per el desenvolupament del nostre modelat del problema.
+4. predecesor: Predicat que utilitza dues variables del tipus 'libros_catalog' i ens indica que el primer llibre 'l1' és predecessor del segon llibre 'l2'. Essencial per a implementar tant el nivell bàsic com l'extensió 1.
+5. mes_lectura: Predicat que fa servir dues variables per assegurar-nos que els llibres es llegeixin en un mes posterior. Utilitzat també per l'extensió dos.
+6. paralelos: Predicat que té dues variables del tipus 'libros_catalog', 'l1' i 'l2', les quals indiquen que aquests dos llibres són paral·lels.
+7. paginas_libro: Funció amb una variable del tipus 'libros_catalog' que conté la informació sobre les pàgines de cada llibre del catàleg.
+8. paginas_mes: Funció amb una variable del tipus 'mes' que conté el nombre de pàgines llegides en el mes corresponent. Utilitzada per assegurar-nos que no ens passem del límit de 800 pàgines de cada mes.
 
 ### 1. 3. ACCIONS
-Per a trobar una solució al nostre problema, només hem utilitzat una acció anomenada
-'leer'. Aquesta acció agafa tres variables. La primera d'aquestes variables és 'l1', de tipus
-'libros_catalog', i aquest serà el llibre que es llegirà en cas que es donin les precondicions
-que explicarem seguidament. Les dues altres variables són de tipus 'mes'. El primer objecte
-'mes', 'm1', indica el mes en el qual es llegirà el llibre, i el segon objecte de tipus 'mes', 'm2',
-s'usa per a situar el mes anterior.
-Per a que aquesta acció es produeixi, s'han de complir les següents precondicions, per a
-començar comprovarem les coses més senzilles. En primer lloc, s'assegura que el llibre no
-estigui llegit. Seguidament, es comprova que 'm2' és el mes anterior a 'm1'. Per acabar
-aquestes primeres comprovacions es verifica que la suma de les pàgines que conté el llibre
-a les pàgines llegides en un mes no superi les 800 pàgines llegides en el mes corresponent.
-Seguidament, comencem a revisar les precondicions per al cas en què un llibre té
-predecessor i també ho fem per a si té un paral·lel. En aquest cas, utilitzem un 'forall' amb
-una variable 'l2' del tipus 'libros_catalog'. A continuació per complir les precondicions de
-predecessor, mirem que si aquesta variable 'l2' és predecessora de la nostra variable llibre
-'l1', això implica que 'l2' ha d'estar llegit i, a més, 'l2' ha d'estar llegit al mes anterior, que és
-'m2'. Fem servir els predicats 'leido' i 'mes_lectura' respectivament per a comprovar-ho.
-Seguidament per als paral·lels mirem que si la variable 'l2' és un llibre paral·lel al llibre 'l1'
-que volem llegir, això implica que el llibre 'l2' ha d'estar llegit i que aquest estigui llegit en el
-mes anterior 'm2' o en el mes actual 'm1'. Per fer-ho, fem ús dels predicats 'leido' i
-'mes_lectura', respectivament per assegurar-nos d'aquests fets.
-Per a finalitzar aquesta acció, hi haurà uns efectes en l'estat del problema. En aquest cas,
-seran tres. El primer efecte és que el llibre 'l1' passa a estar llegit amb el predicat 'leido'. El
-segon efecte és que el llibre 'l1' ha estat llegit en el mes 'm1', utilitzant el predicat
-'mes_lectura'. Finalment, en el tercer efecte, sumarem les pàgines del llibre 'l1', guardades
-en 'paginas_libro', a la "funció" 'pagines_mes', de manera que actualitzem les pàgines
-llegides en el mes 'm1'.
+Per a trobar una solució al nostre problema, només hem utilitzat una acció anomenada 'leer'.
+
+1. leer: Aquesta acció agafa tres variables. La primera d'aquestes variables és 'l1', de tipus 'libros_catalog', i aquest serà el llibre que es llegirà en cas que es donin les precondicions que explicarem seguidament. Les dues altres variables són de tipus 'mes'. El primer objecte 'mes', 'm1', indica el mes en el qual es llegirà el llibre, i el segon objecte de tipus 'mes', 'm2', s'usa per a situar el mes anterior.
+
+* Precondicions:
+  * El llibre no està llegit.
+  * 'm2' és el mes anterior a 'm1'.
+  * La suma de les pàgines del llibre i les pàgines llegides en el mes no supera les 800 pàgines.
+  * Si el llibre té predecessor, aquest ha d'estar llegit al mes anterior 'm2'.
+  * Si el llibre té un paral·lel, aquest ha d'estar llegit al mateix mes 'm1' o al mes anterior 'm2'.
+
+* Efectes:
+  * El llibre 'l1' passa a estar llegit amb el predicat 'leido'.
+  * El llibre 'l1' ha estat llegit en el mes 'm1'.
+  * Les pàgines del llibre 'l1' es sumen a les pàgines llegides en el mes 'm1'.
 
 
 ## 2. MODELAT DEL PROBLEMA
@@ -115,7 +84,6 @@ l'usuari hagi llegit els llibres desitjats. Per tant, l'estat final s'aconseguei
 completat la lectura de tots els llibres que volia llegir. Aconseguim això usant un ‘forall’ el
 qual mira que per a tot llibre ‘l’ del tipus ‘libros_catalog’ els quals vol llegir, ‘quiere_leer’,
 siguin llegits, ‘leidos’.
-
 
 
 ## 3. GENERADOR
