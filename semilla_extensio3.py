@@ -172,7 +172,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
 
 
 
-num_libros_quiere_leer = 5 #random.randint(3,7) #numero de llibres que vol llegir (entre 1 i 5)
-num_libros_catalogo = 15  # random.randint(8,12) #numero de llibres totals,+ els que vol llegir (entre 5,12)
+num_libros_quiere_leer = random.randint(3,7) #numero de llibres que vol llegir (entre 1 i 5)
+num_libros_catalogo =  random.randint(8,12) #numero de llibres totals,+ els que vol llegir (entre 5,12)
 generate_random(num_libros_quiere_leer, num_libros_catalogo)
  
