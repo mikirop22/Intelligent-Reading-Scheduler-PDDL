@@ -167,7 +167,6 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
                 
         file.write(f"  )\n\n")
         file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n")
-        file.write(f"  (:metric maximize (pagines_mes))\n)")
     print("Archivo de problema PDDL generado con éxito. Su nombre es: random_problem.pddl")
 
 
