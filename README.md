@@ -12,13 +12,13 @@ mesos. Tant 'libros_catalog' com 'mes' hereten de 'object'.
 Per abordar aquest problema, hem utilitzat diferents predicats per a poder guiar el planificador a una solució:
 
 1. quiere_leer: Predicat amb una variable del tipus 'libros_catalog' per saber quins llibres vol llegir l'usuari.
-2. leido: Predicat que utilitza una variable del tipus 'libros_catalog' i ens indica si un llibre ha estat llegit.
-3. mes_anterior: Predicat que opera amb dues variables de tipus 'mes'; la primera variable 'm1' representa el mes anterior a la segona variable 'm2'. Aquests tres predicats són essencials per el desenvolupament del nostre modelat del problema.
-4. predecesor: Predicat que utilitza dues variables del tipus 'libros_catalog' i ens indica que el primer llibre 'l1' és predecessor del segon llibre 'l2'. Essencial per a implementar tant el nivell bàsic com l'extensió 1.
-5. mes_lectura: Predicat que fa servir dues variables per assegurar-nos que els llibres es llegeixin en un mes posterior. Utilitzat també per l'extensió dos.
-6. paralelos: Predicat que té dues variables del tipus 'libros_catalog', 'l1' i 'l2', les quals indiquen que aquests dos llibres són paral·lels.
-7. paginas_libro: Funció amb una variable del tipus 'libros_catalog' que conté la informació sobre les pàgines de cada llibre del catàleg.
-8. paginas_mes: Funció amb una variable del tipus 'mes' que conté el nombre de pàgines llegides en el mes corresponent. Utilitzada per assegurar-nos que no ens passem del límit de 800 pàgines de cada mes.
+1. leido: Predicat que utilitza una variable del tipus 'libros_catalog' i ens indica si un llibre ha estat llegit.
+1. mes_anterior: Predicat que opera amb dues variables de tipus 'mes'; la primera variable 'm1' representa el mes anterior a la segona variable 'm2'. Aquests tres predicats són essencials per el desenvolupament del nostre modelat del problema.
+1. predecesor: Predicat que utilitza dues variables del tipus 'libros_catalog' i ens indica que el primer llibre 'l1' és predecessor del segon llibre 'l2'. Essencial per a implementar tant el nivell bàsic com l'extensió 1.
+1. mes_lectura: Predicat que fa servir dues variables per assegurar-nos que els llibres es llegeixin en un mes posterior. Utilitzat també per l'extensió dos.
+1. paralelos: Predicat que té dues variables del tipus 'libros_catalog', 'l1' i 'l2', les quals indiquen que aquests dos llibres són paral·lels.
+1. paginas_libro: Funció amb una variable del tipus 'libros_catalog' que conté la informació sobre les pàgines de cada llibre del catàleg.
+1. paginas_mes: Funció amb una variable del tipus 'mes' que conté el nombre de pàgines llegides en el mes corresponent. Utilitzada per assegurar-nos que no ens passem del límit de 800 pàgines de cada mes.
 
 ### 1. 3. ACCIONS
 Per a trobar una solució al nostre problema, només hem utilitzat una acció anomenada 'leer'.
