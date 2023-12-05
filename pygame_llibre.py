@@ -22,7 +22,6 @@ with open('output.txt', 'r', encoding='utf-16') as file:
 
 
 # Ahora, plan_steps contiene los pasos del plan como elementos de la lista
-print(plan_steps)
 
 
 libros_y_meses = []  # Lista para almacenar el nombre del libro y el mes de cada elemento
