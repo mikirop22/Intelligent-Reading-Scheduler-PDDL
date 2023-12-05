@@ -40,14 +40,14 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
         
         paginas={} #diccionari que sap quantes pagines te cada llibre
         for libro in libros_quiere_leer:
-            num = random.randint(100, 800)
+            num = random.randint(100, 400)
             file.write(f"    (quiere_leer {libro})\n")
             file.write(f"    (=(paginas_libro {libro}) {num})\n")
             paginas[libro] = num
 
 
         for libro in libros_catalogo:
-            num = random.randint(100, 800)
+            num = random.randint(100, 400)
             file.write(f"    (=(paginas_libro {libro}) {num})\n")
             paginas[libro] = num
 
@@ -166,8 +166,8 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
                 file.write(f"    (=(pagines_mes {mes})0)\n") #escriurà que aquell mes ja ha llegit x pagines
                 
         file.write(f"  )\n\n")
-        file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n)\n")
-
+        file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n")
+        file.write(f"  (:metric maximize (pagines_mes))\n)")
     print("Archivo de problema PDDL generado con éxito. Su nombre es: random_problem.pddl")
 
 
