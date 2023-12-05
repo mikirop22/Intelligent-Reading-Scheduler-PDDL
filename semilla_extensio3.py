@@ -74,7 +74,7 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             if numero1 == numero2:
                 continue
             
-            if ((libro1, libro2) or (libro2, libro1)) not in predecesors: # mirem que un llibre no pot ser predecessor del mateix llibre si l'altre ho és del mateix
+            if (libro2, libro1) in predecesors or (libro1, libro2) in predecesors: # mirem que un llibre no pot ser predecessor del mateix llibre si l'altre ho és del mateix
                 file.write(f"    (predecesor {libro1} {libro2})\n")
                 predecesors.append((libro1, libro2))
 
@@ -138,7 +138,10 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
                     else:
                         return cadena_predecessor(predecesor[1])
             
-            visited.add(predecesor) 
+            if predecesors:  # Añadir una comprobación para evitar errores si predecesors está vacío
+                visited.add(predecesor)
+                
+            return False 
 
         for i, libros in enumerate(paralels_ordenados):
             if (libros[1] in libros_quiere_leer or cadena_predecessor(libros[1])) and libros[0] not in libros_quiere_leer:
@@ -148,21 +151,22 @@ def generate_random(num_libros_quiere_leer, num_libros_catalogo):
             elif libros[0] in libros_quiere_leer:
                 paralels_ordenados[i] = (libros[1], libros[0])     
             
-        for libro in paralels_ordenados:        
+        for libro in paralels_ordenados: 
             file.write(f"    (paralelos {libro[0]} {libro[1]})\n")
-
         
-
-        for mes in range(len(meses)):
-            mes_anterior = meses[mes-1]
-            file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
+        file.write(f"    (mes_anterior Previo Enero)\n")
+        for mes in range(1, len(meses)):
+            mes_anterior = meses[mes - 1]
+            if meses[mes] != 'Previo' and meses[mes] != 'Enero':    
+                file.write(f"    (mes_anterior {mes_anterior} {meses[mes]})\n")
+                file.write(f"    (mes_anterior Previo {meses[mes]})\n")
 
         for mes in meses: 
-            file.write(f"    (=(pagines_mes {mes})0)\n") #escriurà que aquell mes ja ha llegit x pagines
+            if mes != 'Previo':
+                file.write(f"    (=(pagines_mes {mes})0)\n") #escriurà que aquell mes ja ha llegit x pagines
                 
         file.write(f"  )\n\n")
-        file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n")
-        file.write(f"  (:metric maximize (pagines_mes))\n)")
+        file.write(f"  (:goal (forall (?l - libros_catalog) (imply (quiere_leer ?l) (leido ?l))))\n)\n")
 
     print("Archivo de problema PDDL generado con éxito. Su nombre es: random_problem.pddl")
 
