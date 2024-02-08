@@ -1,5 +1,9 @@
 # Practica_PDDL
 
+## OBJECTIU
+
+En l'actualitat, amb l'abundància de llibres disponibles, és difícil decidir què llegir. Desenvoluparem una eina que, basant-se en els llibres ja llegits i els desitjats per al pròxim any, elabori un pla de lectura mensual. Aquest pla recomanarà l'ordre de lectura dels llibres i intentarà equilibrar el nombre de pàgines per mes, tenint en compte les dependències entre ells.
+
 ## 1. MODELAT DEL DOMINI
 
 ### 1. 1. VARIABLES
